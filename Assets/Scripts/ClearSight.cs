@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ClearSight : MonoBehaviour
 {
-    public float DistanceToPlayer = 5.0f;
+    public float DistanceToPlayer = 6f;
     public Material TransparentMaterial = null;
-    public float FadeInTimeout = 0.6f;
+    public float FadeInTimeout = 0.3f;
     public float FadeOutTimeout = 0.2f;
-    public float TargetTransparency = 0.3f;
+    public float TargetTransparency = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,8 +19,7 @@ public class ClearSight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit[] hits; // you can also use CapsuleCastAll() 
-                           // TODO: setup your layermask it improve performance and filter your hits. 
+        RaycastHit[] hits;
         hits = Physics.RaycastAll(transform.position, transform.forward, DistanceToPlayer);
         foreach (RaycastHit hit in hits)
         {
