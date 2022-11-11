@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClearSight : MonoBehaviour
 {
-    public float DistanceToPlayer = 6f;
+    public float DistanceToPlayer = 7f;
     public Material TransparentMaterial = null;
     public float FadeInTimeout = 0.3f;
     public float FadeOutTimeout = 0.2f;

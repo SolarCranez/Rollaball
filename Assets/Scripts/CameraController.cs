@@ -6,11 +6,14 @@ public class CameraController : MonoBehaviour
 {
     public GameObject player;
     private Vector3 offset;
+
+    public AudioSource cameraAudio;
     //public float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        cameraAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
         offset = new Vector3(0, 11.72f, -5.03f) - player.transform.position;
         //offset = transform.position - player.transform.position;

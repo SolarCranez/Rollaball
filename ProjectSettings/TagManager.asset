@@ -6,6 +6,10 @@ TagManager:
   tags:
   - TotalMaze
   - MazeWall
+  - OuterWall
+  - VictoryBox
+  - FallingThrough
+  - Dead
   layers:
   - Default
   - TransparentFX
