@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlatformController : MonoBehaviour
 {
+    // movement variables
     public float tiltSpeed;
     private float forwardInput;
     private float horizontalInput;
 
+    // current object's orientation
     private Vector3 currentEulerAngles;
 
     // Start is called before the first frame update
@@ -22,7 +24,6 @@ public class PlatformController : MonoBehaviour
         return (new Vector3(x, 0, -z) * tiltSpeed * Time.deltaTime);
     }
 
-    
     // rotate the platform/object
     public void RotatePlatform()
     {
@@ -32,13 +33,23 @@ public class PlatformController : MonoBehaviour
         transform.eulerAngles = currentEulerAngles;
     }
 
-
     // Update is called once per frame
     void FixedUpdate()
     {
-        forwardInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
+        // when gameover, stop player controls
+        if (GameManager.Instance.gameOver == true)
+        {
 
-        RotatePlatform();
+        }
+
+        // player movement is based on W/A/S/D keys, rotate platform respectively
+        else 
+        {
+            forwardInput = Input.GetAxis("Vertical");
+            horizontalInput = Input.GetAxis("Horizontal");
+
+            RotatePlatform();
+        }
+
     }
 }

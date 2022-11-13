@@ -1,22 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    // variables
     public float speed;
     public Rigidbody playerRb;
     public GameObject Camera;
 
+    // audio variables
     private AudioSource playerAudio;
     public AudioClip[] wallHitSounds;
     public AudioClip[] victorySounds;
     public AudioClip[] fallingSounds;
     public AudioClip[] gameOverSounds;
+    private bool dead = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        // get components/gameobjects
         playerRb = GetComponent<Rigidbody>();
         Camera = GameObject.Find("Camera");
         playerAudio = GetComponent<AudioSource>();
@@ -25,59 +30,76 @@ public class PlayerController : MonoBehaviour
     // on entering the trigger of ___
     private void OnTriggerEnter(Collider other)
     {
+        // random range from 0 to length of array
         int gameOverElement = Random.Range(0, gameOverSounds.Length);
         int victoryElement = Random.Range(0, victorySounds.Length);
         int fallingElement = Random.Range(0, fallingSounds.Length);
 
-        if (other.CompareTag("VictoryBox"))
+        // victory: stop all movement and audio, play victory sound
+        if (other.CompareTag("VictoryBox") && GameManager.Instance.gameOver==false)
         {
+            GameManager.Instance.gameOver = true;
             StopAllAudio();
             playerAudio.PlayOneShot(victorySounds[victoryElement], 1f);
         }
 
-        if (other.CompareTag("FallingThrough"))
+        // fell through hole: stop all movement and audio, play falling sound
+        if (other.CompareTag("FallingThrough") && GameManager.Instance.gameOver==false)
         {
-            StopAllAudio();
-            playerAudio.PlayOneShot(fallingSounds[fallingElement], 1.0f);
+            GameManager.Instance.gameOver = true;
+
+            //if (fallingElement==2)
+            //{
+            //    StopAllAudio();
+            //    playerAudio.PlayOneShot(fallingSounds[fallingElement], 0.5f);
+            //}
+            //else
+            //{
+            //    StopAllAudio();
+            //    playerAudio.PlayOneShot(fallingSounds[fallingElement], 1.0f);
+            //}
         }
 
-        if (other.CompareTag("Dead"))
+        // hit bottom of maze: play death sound
+        if (other.CompareTag("Dead") && !dead)
         {
-            playerAudio.PlayOneShot(gameOverSounds[gameOverElement], 1.0f);
+            dead = true;
+            //playerAudio.PlayOneShot(gameOverSounds[gameOverElement], 0.7f);
+            SceneManager.LoadScene(1);
         }
     }
 
-    // on collision with x
+    // on collision with "x" variable
     private void OnCollisionEnter(Collision collision)
     {
+        // random range from 1 to array length
         int hitElement = Random.Range(1, wallHitSounds.Length);
+        // on collision with an inner maze wall, play hit sound
         if (collision.gameObject.CompareTag("MazeWall"))
         {
-            if (hitElement == 1 || hitElement == 9)
+            if (hitElement == 1 || hitElement == 9 || hitElement == 12)
             {
                 playerAudio.PlayOneShot(wallHitSounds[hitElement], 0.4f);
-            }
-            else if (hitElement == 11)
-            {
-                playerAudio.PlayOneShot(wallHitSounds[hitElement], 0.1f);
             }
 
             else
             {
                 playerAudio.PlayOneShot(wallHitSounds[hitElement], 1.0f);
             }
-            Debug.Log("wall collision");
+            //Debug.Log("wall collision");
         }
 
-        if (collision.gameObject.CompareTag("OuterWall"))
+        // on collision with outer maze wall, play pipe sfx
+        if (collision.gameObject.CompareTag("OuterWall") && GameManager.Instance.gameOver == false)
         {
             playerAudio.PlayOneShot(wallHitSounds[0], 0.2f);
-            Debug.Log("outerwall collision");
+            //Debug.Log("outerwall collision");
         }
     }
 
+    // AudioSource array specifically for StopAllAudio
     private AudioSource[] allAudioSources;
-
+    // stops all audio being played
     void StopAllAudio()
     {
         allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
@@ -90,12 +112,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // player moves forwards/backwards based on W/S input and the camera's axis
-        float forwardInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        playerRb.AddForce(Camera.transform.forward * speed * forwardInput);
-        playerRb.AddForce(Camera.transform.right * speed * horizontalInput);
 
     }
 }

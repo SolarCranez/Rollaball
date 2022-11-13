@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    // player reference and camera offset variables
     public GameObject player;
     private Vector3 offset;
 
+    // camera audio
     public AudioSource cameraAudio;
-    //public float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        // get components/gameobjects
         cameraAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
         offset = new Vector3(0, 11.72f, -5.03f) - player.transform.position;
@@ -22,15 +24,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        //if (Input.GetKeyDown("Q") || Input.GetKeyDown("E"))
-        //{
-        //    Debug.Log("Q or E was pressed");
-
-        //}
-
-        //transform.Rotate(Vector3.up, rotationSpeed * horizontalInput * Time.deltaTime);
+        // move camera based on player and offset
         transform.position = player.transform.position + offset;
     }
 
