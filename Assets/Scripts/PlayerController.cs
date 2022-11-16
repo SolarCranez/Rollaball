@@ -46,26 +46,26 @@ public class PlayerController : MonoBehaviour
         // fell through hole: stop all movement and audio, play falling sound
         if (other.CompareTag("FallingThrough") && GameManager.Instance.gameOver==false)
         {
-            GameManager.Instance.gameOver = true;
+            BackroomsGameManager.Instance.gameOver = true;
 
-            //if (fallingElement==2)
-            //{
-            //    StopAllAudio();
-            //    playerAudio.PlayOneShot(fallingSounds[fallingElement], 0.5f);
-            //}
-            //else
-            //{
-            //    StopAllAudio();
-            //    playerAudio.PlayOneShot(fallingSounds[fallingElement], 1.0f);
-            //}
+            if (fallingElement == 2)
+            {
+                StopAllAudio();
+                playerAudio.PlayOneShot(fallingSounds[fallingElement], 0.5f);
+            }
+            else
+            {
+                StopAllAudio();
+                playerAudio.PlayOneShot(fallingSounds[fallingElement], 1.0f);
+            }
         }
 
         // hit bottom of maze: play death sound
         if (other.CompareTag("Dead") && !dead)
         {
             dead = true;
-            //playerAudio.PlayOneShot(gameOverSounds[gameOverElement], 0.7f);
-            SceneManager.LoadScene(1);
+            playerAudio.PlayOneShot(gameOverSounds[gameOverElement], 0.7f);
+            //SceneManager.LoadScene(1);
         }
     }
 
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         // on collision with an inner maze wall, play hit sound
         if (collision.gameObject.CompareTag("MazeWall"))
         {
-            if (hitElement == 1 || hitElement == 9 || hitElement == 12)
+            if (hitElement == 1 || hitElement == 9 || hitElement == 12 || hitElement == 14)
             {
                 playerAudio.PlayOneShot(wallHitSounds[hitElement], 0.4f);
             }

@@ -1755,6 +1755,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4bc2be2345df61b48a3945f906569393, type: 3}
   - {fileID: 8300000, guid: 10eed582731c31f43896bb598de212a2, type: 3}
   - {fileID: 8300000, guid: 2976c6a48c4c37f4eb7ee1cd2a7fd8e8, type: 3}
+  - {fileID: 8300000, guid: cb83da7b39591214681bc7891ab1a6e1, type: 3}
+  - {fileID: 8300000, guid: fece61ab7d5baef40bea3b45a4a1d2fb, type: 3}
+  - {fileID: 8300000, guid: 75851ca4422c0af4aa0fef6569a506f0, type: 3}
   victorySounds:
   - {fileID: 8300000, guid: c2e1f8b3834abf34b817cfd54917c0fb, type: 3}
   - {fileID: 8300000, guid: dc42724e083ec5e46bf98220ed81d7a2, type: 3}
@@ -2825,7 +2828,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 35803ef560eac304d9fec227579c0eed, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3898,7 +3901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1519111911}
-  - component: {fileID: 1519111910}
+  - component: {fileID: 1519111912}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3906,19 +3909,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1519111910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519111909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b726f4246af0204f8a32e7e6e543e98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOver: 0
 --- !u!4 &1519111911
 Transform:
   m_ObjectHideFlags: 0
@@ -3934,6 +3924,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1519111912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519111909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24701050fb5fa3c408817eaf1cbcb9ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOver: 0
 --- !u!1 &1630480059
 GameObject:
   m_ObjectHideFlags: 0
