@@ -37,21 +37,18 @@ public class BackroomsController : MonoBehaviour
         int victoryElement = Random.Range(0, victorySounds.Length);
 
         // victory: stop all movement and audio, play victory sound
-        if (other.CompareTag("VictoryBox") && BackroomsGameManager.Instance.gameOver==false)
+        if (other.CompareTag("VictoryBox") && BackroomsGameManager.Instance.win==false)
         {
-            BackroomsGameManager.Instance.gameOver = true;
+            BackroomsGameManager.Instance.win = true;
+            BackroomsGameManager.Instance.gameOverB = true;
             StopAllAudio();
-            while (playerAudio.isPlaying == false)
-            {
-                playerAudio.PlayOneShot(victorySounds[victoryElement], 1f);
-            }
-            SceneManager.LoadScene(0);
+            playerAudio.PlayOneShot(victorySounds[victoryElement], 1f);
         }
 
         // fell through hole: stop all movement and audio, play gameOver sound
-        if (other.CompareTag("FallingThrough") && BackroomsGameManager.Instance.gameOver == false)
+        if (other.CompareTag("FallingThrough") && BackroomsGameManager.Instance.gameOverB == false)
         {
-            BackroomsGameManager.Instance.gameOver = true;
+            BackroomsGameManager.Instance.gameOverB = true;
 
             StopAllAudio();
             playerAudio.PlayOneShot(gameOverSounds[gameOverElement], 0.5f);
@@ -87,7 +84,7 @@ public class BackroomsController : MonoBehaviour
     {
         horrorActive = true;
 
-        if (BackroomsGameManager.Instance.gameOver == true)
+        if (BackroomsGameManager.Instance.gameOverB == true)
         {
             StopAllCoroutines();
         }
@@ -96,7 +93,7 @@ public class BackroomsController : MonoBehaviour
         Debug.Log("initial delay is.." + delay);
         yield return new WaitForSeconds(delay);
 
-        delay = Random.Range(10, 20);
+        delay = Random.Range(5, 15);
         Debug.Log("new delay time is.." + delay);
         yield return new WaitForSeconds(delay);
 
@@ -108,23 +105,31 @@ public class BackroomsController : MonoBehaviour
         StopAllCoroutines();
     }
 
-    IEnumerator Horror2()
-    {
-        if (BackroomsGameManager.Instance.gameOver == true)
-        {
-            StopAllCoroutines();
-        }
+    //IEnumerator Horror2()
+    //{
+    //    if (BackroomsGameManager.Instance.gameOverB == true)
+    //    {
+    //        StopAllCoroutines();
+    //    }
 
-        int delay = Random.Range(20, 30);
+    //    int delay = Random.Range(20, 30);
+    //    yield return new WaitForSeconds(delay);
+
+
+    //    int horrorElement2 = Random.Range(0, horrorSounds2.Length);
+    //    playerAudio.PlayOneShot(horrorSounds2[horrorElement2], Random.Range(0.7f, 1));
+    //    yield return new WaitUntil(() => playerAudio.isPlaying == false);
+
+    //    horrorActive = false;
+    //    StopAllCoroutines();
+    //}
+    
+    IEnumerator Win()
+    {
+        int delay = 37;
         yield return new WaitForSeconds(delay);
 
-
-        int horrorElement2 = Random.Range(0, horrorSounds2.Length);
-        playerAudio.PlayOneShot(horrorSounds2[horrorElement2], Random.Range(0, 1));
-        yield return new WaitUntil(() => playerAudio.isPlaying == false);
-
-        horrorActive = false;
-        StopAllCoroutines();
+        SceneManager.LoadScene(0);
     }
 
     // Update is called once per frame
@@ -132,6 +137,7 @@ public class BackroomsController : MonoBehaviour
     {
         while (horrorActive==false) {
             StartCoroutine(Horror());
+            //StartCoroutine(Horror2());
         }
 
         //while (horrorActive==true)
@@ -139,7 +145,7 @@ public class BackroomsController : MonoBehaviour
         //    StartCoroutine(Horror2());
         //}
 
-        if (BackroomsGameManager.Instance.gameOver == true)
+        if (BackroomsGameManager.Instance.gameOverB==true && BackroomsGameManager.Instance.win==false)
         {
             StopAllCoroutines();
         }

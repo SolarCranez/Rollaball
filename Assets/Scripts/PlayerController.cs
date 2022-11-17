@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         // fell through hole: stop all movement and audio, play falling sound
         if (other.CompareTag("FallingThrough") && GameManager.Instance.gameOver==false)
         {
-            BackroomsGameManager.Instance.gameOver = true;
+            GameManager.Instance.gameOver = true;
 
             if (fallingElement == 2)
             {
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         // random range from 1 to array length
         int hitElement = Random.Range(1, wallHitSounds.Length);
         // on collision with an inner maze wall, play hit sound
-        if (collision.gameObject.CompareTag("MazeWall"))
+        if (collision.gameObject.CompareTag("MazeWall") && GameManager.Instance.gameOver == false)
         {
             if (hitElement == 1 || hitElement == 9 || hitElement == 12 || hitElement == 14)
             {

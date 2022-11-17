@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformController : MonoBehaviour
+public class BackroomsPController : MonoBehaviour
 {
     // movement variables
     public float tiltSpeed;
@@ -37,7 +37,7 @@ public class PlatformController : MonoBehaviour
     void FixedUpdate()
     {
         // when gameover, stop player controls
-        if (GameManager.Instance.gameOver==true)
+        if (BackroomsGameManager.Instance.gameOverB == true)
         {
 
         }
